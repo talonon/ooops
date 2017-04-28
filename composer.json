@@ -1,0 +1,28 @@
+{
+  "name": "talonon/ooops",
+  "description": "",
+  "authors": [
+    {
+      "name": "KPS3",
+      "email": "web@kps3.com"
+    },
+    {
+      "name": "Andy Muth",
+      "email": "andy@griffonco.com"
+    }
+  ],
+  "require": {
+    "laravel/framework": "^5.0",
+    "php": ">=7.0.0",
+    "ramsey/uuid": "*",
+    "moontoast/math": "*",
+    "ext-bcmath": "*",
+    "nesbot/carbon": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Talonon\\Ooops\\": "src/"
+    }
+  },
+  "minimum-stability": "stable"
+}
