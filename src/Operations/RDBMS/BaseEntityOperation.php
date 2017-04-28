@@ -26,6 +26,33 @@ abstract class BaseEntityOperation extends BaseDbOperation {
    */
   private $_repository;
 
+  public function Execute() {
+    $this->validate();
+    $this->beforeEvent();
+    $this->beforeExecute();
+    $this->doExecute();
+    $this->afterExecute();
+    $this->afterEvent();
+  }
+
+  protected function beforeEvent() {
+    $this->fireEvent('Before', $this->entity);
+  }
+
+  protected function afterEvent() {
+    $this->fireEvent('After', $this->entity);
+  }
+
+  protected function eventName() {
+    return str_replace('Operation', '', (new \ReflectionClass($this))->getShortName());
+  }
+
+  protected function fireEvent(string $eventKey = '', ...$params) {
+    $key = get_class($this->getRepository()) . '.' . $eventKey . $this->eventName();
+    print_r($params);
+    event($key, ...$params);
+  }
+
   /**
    * @return BaseDbRepository|BaseSoftDeleteDbRepository
    * @throws InternalException

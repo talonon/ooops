@@ -3,6 +3,8 @@
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Talonon\Ooops\Interfaces\ResultInterface;
+use Talonon\Ooops\Models\BaseGetMultipleParams;
+use Talonon\Ooops\Models\BaseGetSingleParams;
 
 abstract class BaseGetOperation extends BaseEntityOperation implements ResultInterface {
 
@@ -16,8 +18,21 @@ abstract class BaseGetOperation extends BaseEntityOperation implements ResultInt
    */
   protected $rows;
 
+  /**
+   * @var BaseGetSingleParams|BaseGetMultipleParams
+   */
+  protected $params;
+
   public function GetResult() {
     return $this->result;
+  }
+
+  protected function afterEvent() {
+    $this->fireEvent('After', $this->result);
+  }
+
+  protected function beforeEvent() {
+    $this->fireEvent('Before', $this->params);
   }
 
   protected function doExecute() {
