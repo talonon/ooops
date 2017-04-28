@@ -49,7 +49,6 @@ abstract class BaseEntityOperation extends BaseDbOperation {
 
   protected function fireEvent(string $eventKey = '', ...$params) {
     $key = get_class($this->getRepository()) . '.' . $eventKey . $this->eventName();
-    print_r($params);
     event($key, ...$params);
   }
 
