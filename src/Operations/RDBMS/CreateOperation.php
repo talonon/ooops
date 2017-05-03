@@ -4,7 +4,7 @@ use Ramsey\Uuid\Uuid;
 use Talonon\Ooops\Contexts\DbContext;
 use Talonon\Ooops\Interfaces\HasUuidInterface;
 use Talonon\Ooops\Models\Entity;
-use Talonon\Ooops\Models\NullUuid;
+use Talonon\Ooops\Models\Uuids\NullUuid;
 
 class CreateOperation extends BaseEntityOperation {
 

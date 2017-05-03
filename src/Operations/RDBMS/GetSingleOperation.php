@@ -5,7 +5,6 @@ use Talonon\Ooops\Contexts\DbContext;
 use Talonon\Ooops\Exceptions\EntityNotFoundException;
 use Talonon\Ooops\Exceptions\InternalException;
 use Talonon\Ooops\Models\BaseGetSingleParams;
-use Talonon\Ooops\Repositories\BaseSoftDeleteDbRepository;
 
 class GetSingleOperation extends BaseGetOperation {
 
@@ -20,9 +19,8 @@ class GetSingleOperation extends BaseGetOperation {
   protected $params;
 
   protected function buildQuery(Builder $select) {
-    $fields = $this->getRepository()->GetSingleFields($this->params);
-    $select->where($fields);
     parent::buildQuery($select);
+    $this->getRepository()->BuildGetSingleQuery($select, $this->params);
   }
 
   protected function buildResult() {

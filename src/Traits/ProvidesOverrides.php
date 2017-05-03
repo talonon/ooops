@@ -17,19 +17,21 @@ trait ProvidesOverrides {
    * @param string|array|null $operationClass
    * @throws InternalException
    */
-  protected function addOverride(string $entityClass, string $operationClass) {
-    if (is_subclass_of($operationClass, GetSingleOperation::class)) {
-      $type = 'get';
-    } else if (is_subclass_of($operationClass, GetMultipleOperation::class)) {
-      $type = 'getList';
-    } else if (is_subclass_of($operationClass, BaseSoftDeleteOperation::class) || is_subclass_of($operationClass, DeleteOperation::class)) {
-      $type = 'delete';
-    } else if (is_subclass_of($operationClass, CreateOperation::class)) {
-      $type = 'create';
-    } else if (is_subclass_of($operationClass, UpdateOperation::class)) {
-      $type = 'update';
-    } else {
-      throw new InternalException('Invalid operation override');
+  protected function addOverride(string $entityClass, string $operationClass, $type = null) {
+    if (!$type) {
+      if (is_subclass_of($operationClass, GetSingleOperation::class)) {
+        $type = 'get'; //@TODO Magic String
+      } else if (is_subclass_of($operationClass, GetMultipleOperation::class)) {
+        $type = 'getList';
+      } else if (is_subclass_of($operationClass, BaseSoftDeleteOperation::class) || is_subclass_of($operationClass, DeleteOperation::class)) {
+        $type = 'delete';
+      } else if (is_subclass_of($operationClass, CreateOperation::class)) {
+        $type = 'create';
+      } else if (is_subclass_of($operationClass, UpdateOperation::class)) {
+        $type = 'update';
+      } else {
+        throw new InternalException('Invalid operation override');
+      }
     }
 
     $overrides = app('talonon.ooops.operations.overrides');

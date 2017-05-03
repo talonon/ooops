@@ -1,6 +1,7 @@
 <?php namespace Talonon\Ooops\Repositories;
 
 use Carbon\Carbon;
+use Illuminate\Database\Query\Builder;
 use Talonon\Ooops\Contexts\DbContext;
 use Talonon\Ooops\Exceptions\InternalException;
 use Talonon\Ooops\Interfaces\HasTimestampsInterface;
@@ -65,14 +66,12 @@ abstract class BaseDbRepository extends BaseRepository {
     return $fields;
   }
 
-  public function GetSingleFields(BaseGetSingleParams $params) {
-    return [
-      $this->GetPrimaryKey() => $params->GetId()
-    ];
+  public function BuildGetSingleQuery(Builder $query, BaseGetSingleParams $params) {
+    $query->where($this->GetPrimaryKey(), $params->GetId());
   }
 
-  public function GetMultipleFields(BaseGetMultipleParams $params) {
-    return [];
+  public function BuildGetMultipleQuery(Builder $query, BaseGetMultipleParams $params) {
+
   }
 
   abstract public function GetTableName();
