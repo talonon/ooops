@@ -26,13 +26,3 @@ abstract class Struct {
   }
 
 }
-
-
-/**
- * This exists to maintain backward compatibiity.  use Struct instead.
- * @package Talonon\Ooops\Models
- * @deprecated Use Struct instead.
- */
-abstract class Enum extends Struct {
-
-}

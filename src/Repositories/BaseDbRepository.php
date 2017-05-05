@@ -66,17 +66,27 @@ abstract class BaseDbRepository extends BaseRepository {
     return $fields;
   }
 
-  public function BuildGetSingleQuery(Builder $query, BaseGetSingleParams $params) {
-    $query->where($this->GetPrimaryKey(), $params->GetId());
+  public function BuildGetMultipleQuery(Builder $query, BaseGetMultipleParams $params) {
+    $this->doBuildMultipleQuery($query, $params);
+
   }
 
-  public function BuildGetMultipleQuery(Builder $query, BaseGetMultipleParams $params) {
-
+  public function BuildGetSingleQuery(Builder $query, BaseGetSingleParams $params) {
+    if (!is_array($params->GetId())) {
+      $query->where($this->GetPrimaryKey(), $params->GetId());
+    }
+    $this->doBuildSingleQuery($query, $params);
   }
 
   abstract public function GetTableName();
 
   abstract public function GetPrimaryKey();
+
+  protected function doBuildSingleQuery(Builder $query, BaseGetSingleParams $params) {
+  }
+
+  protected function doBuildMultipleQuery(Builder $query, BaseGetMultipleParams $params) {
+  }
 
   /**
    * @param Entity $entity
