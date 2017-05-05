@@ -3,7 +3,7 @@
 use Talonon\Ooops\Models\Pagination\NoPagination;
 use Talonon\Ooops\Models\Pagination\Pagination;
 
-class HasPagination {
+trait HasPagination {
   private $_pagination;
 
   public function GetPagination() {
