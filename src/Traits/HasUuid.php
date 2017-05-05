@@ -2,7 +2,7 @@
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Talonon\Ooops\Models\NullUuid;
+use Talonon\Ooops\Models\Uuids\NullUuid;
 
 trait HasUuid {
 
