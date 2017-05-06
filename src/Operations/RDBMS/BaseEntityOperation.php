@@ -44,7 +44,7 @@ abstract class BaseEntityOperation extends BaseDbOperation {
   }
 
   protected function eventName() {
-    return str_replace('Operation', '', (new \ReflectionClass($this))->getShortName());
+    return (new \ReflectionClass($this))->getShortName();
   }
 
   protected function fireEvent(string $eventKey = '', ...$params) {

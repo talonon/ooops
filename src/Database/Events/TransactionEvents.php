@@ -11,8 +11,8 @@ trait TransactionEvents {
         $this->addTransactionEvents($repositoryClass, $class);
       }
     } else {
-      $this->addRepositoryEvent($repositoryClass, 'Before' . $operationClass, BeginTransaction::class, 99);
-      $this->addRepositoryEvent($repositoryClass, 'After' . $operationClass, CommitTransaction::class, 99);
+      $this->addBeforeEvent($repositoryClass, $operationClass, BeginTransaction::class, 99);
+      $this->addAfterEvent($repositoryClass, $operationClass, CommitTransaction::class, 99);
     }
   }
 
