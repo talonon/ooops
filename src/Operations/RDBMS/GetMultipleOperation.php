@@ -27,7 +27,7 @@ class GetMultipleOperation extends BaseGetOperation {
 
   protected function buildQuery(Builder $query) {
     parent::buildQuery($query);
-    $this->getRepository()->BuildGetMultipleQuery($query);
+    $this->getRepository()->BuildGetMultipleQuery($query, $this->params);
     $this->buildPagination($query);
   }
 
