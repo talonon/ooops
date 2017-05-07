@@ -1,4 +1,4 @@
-<?php namespace Talonon\Events;
+<?php namespace Talonon\Ooops\Events;
 
 use Talonon\Ooops\Models\Struct;
 

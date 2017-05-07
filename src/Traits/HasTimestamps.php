@@ -27,7 +27,7 @@ trait HasTimestamps {
    * @param Carbon $created_at
    * @return $this
    */
-  public function SetCreatedAt(Carbon $created_at) {
+  public function SetCreatedAt(Carbon $created_at = null) {
     $this->_createdAt = $created_at;
     return $this;
   }
@@ -43,7 +43,7 @@ trait HasTimestamps {
    * @param Carbon $updated_at
    * @return $this
    */
-  public function SetUpdatedAt(Carbon $updated_at) {
+  public function SetUpdatedAt(Carbon $updated_at = null) {
     $this->_updatedAt = $updated_at;
     return $this;
   }

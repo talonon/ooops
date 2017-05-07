@@ -9,7 +9,7 @@
 
     abstract class BaseController extends Controller {
       public function __construct() {
-        $this->context = app('Context');
+        $this->context = context();
       }
       /**
        * @var Context

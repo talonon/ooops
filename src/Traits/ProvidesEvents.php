@@ -1,6 +1,6 @@
 <?php namespace Talonon\Ooops\Traits;
 
-use Talonon\Events\EventKeysStruct;
+use Talonon\Ooops\Events\EventKeysStruct;
 use Talonon\Ooops\Exceptions\InternalException;
 use Talonon\Ooops\Repositories\BaseRepository;
 
@@ -30,8 +30,14 @@ trait ProvidesEvents {
     } else {
       throw new InternalException('Invalid repository');
     }
-    $key = $repository . '.' . $when . $operationClass;
-    \Event::listen($key, $handler, $priority);
+    if (is_array($operationClass)) {
+      foreach ($operationClass as $operation) {
+        self::addRepositoryEvent($repository, $operation, $handler, $when, $priority);
+      }
+    } else {
+      $key = $repository . '.' . $when . $operationClass;
+      \Event::listen($key, $handler, $priority);
+    }
   }
 
 }
