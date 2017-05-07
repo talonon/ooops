@@ -11,15 +11,18 @@ trait HasUuid {
    */
   private $_uuid;
 
+  /**
+   * @return UuidInterface
+   */
   public function GetUuid(): UuidInterface {
     return $this->_uuid ?: new NullUuid();
   }
 
   /**
-   * @param Uuid|null $uuid
+   * @param UuidInterface|null $uuid
    * @return $this
    */
-  public function SetUuid(Uuid $uuid = null) {
+  public function SetUuid(UuidInterface $uuid = null) {
     $this->_uuid = $uuid;
     return $this;
   }
