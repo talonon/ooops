@@ -1,6 +1,7 @@
 <?php namespace Talonon\Ooops\Traits\RDBMS;
 
 use Illuminate\Support\Collection;
+use Talonon\Ooops\Exceptions\EntityNotFoundException;
 use Talonon\Ooops\Interfaces\ResultInterface;
 use Talonon\Ooops\Models\BaseGetMultipleParams;
 use Talonon\Ooops\Models\BaseGetSingleParams;
@@ -40,6 +41,18 @@ trait EntityCrud {
 
   /**
    * @param BaseGetSingleParams $params
+   * @return Entity|null
+   */
+  protected function tryGetEntity(BaseGetSingleParams $params) {
+    try {
+      return $this->_crud('get', $params)->GetResult();
+    } catch (EntityNotFoundException $nfex) {
+      return null;
+    }
+  }
+
+  /**
+   * @param BaseGetSingleParams $params
    * @return Collection
    */
   protected function getEntities(BaseGetMultipleParams $params) {
@@ -74,4 +87,3 @@ trait EntityCrud {
     return $overrides->get($repository . '.' . $type, 'talonon.ooops.operations.rdbms.' . $type);
   }
 }
-
