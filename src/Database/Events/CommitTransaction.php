@@ -4,8 +4,8 @@ use Talonon\Ooops\Contexts\DbContext;
 
 class CommitTransaction {
 
-  public function handle(DbContext $context) {
-    $context->GetDatabase()->commit();
+  public function handle() {
+    context()->GetDatabase()->commit();
   }
 
 }

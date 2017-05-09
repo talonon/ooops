@@ -33,10 +33,11 @@ class GetMultipleOperation extends BaseGetOperation {
 
   protected function buildResult() {
     $repository = $this->getRepository();
-    $this->result = $this->rows->map(
-      function ($row) use (&$repository) {
-        return $repository->BuildMultiple(is_object($row) ? get_object_vars($row) : $row);
-      });
+    $this->result = $this->_createCollection(
+      $this->rows->map(
+        function ($row) use (&$repository) {
+          return $repository->BuildMultiple(is_object($row) ? get_object_vars($row) : $row);
+        }));
     unset($this->rows);
     $this->hydratePaginationResponse();
   }
@@ -61,6 +62,11 @@ class GetMultipleOperation extends BaseGetOperation {
       $pages = ceil($results / $this->params->GetPagination()->GetPerPage());
       $this->params->GetPagination()->SetResultPages($pages)->SetResultCount($results);
     }
+  }
+
+  private function _createCollection(Collection $collection): Collection {
+    $class = get_class($this->getRepository()) . '.Collection';
+    return app()->isAlias($class) ? app($class, [$collection]) : $collection;
   }
 
 }
