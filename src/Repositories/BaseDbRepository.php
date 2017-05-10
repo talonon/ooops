@@ -74,7 +74,7 @@ abstract class BaseDbRepository extends BaseRepository {
   public function BuildGetSingleQuery(Builder $query, BaseGetSingleParams $params) {
     $pk = $this->GetPrimaryKey();
     $id = $params->GetId();
-    if (is_array($pk)) {
+    if (is_array($pk) && $id) {
       $query->where(
         function (Builder $inner) use (&$pk, &$id) {
           for ($x = 0, $c = count($pk); $x < $c; $x++) {
