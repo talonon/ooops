@@ -72,8 +72,17 @@ abstract class BaseDbRepository extends BaseRepository {
   }
 
   public function BuildGetSingleQuery(Builder $query, BaseGetSingleParams $params) {
-    if ($params->GetId() && !is_array($params->GetId())) {
-      $query->where($this->GetPrimaryKey(), $params->GetId());
+    $pk = $this->GetPrimaryKey();
+    $id = $params->GetId();
+    if (is_array($pk)) {
+      $query->where(
+        function (Builder $inner) use (&$pk, &$id) {
+          for ($x = 0, $c = count($pk); $x < $c; $x++) {
+            $inner->where($this->GetTableName() . '.' . $pk[$x], $id[$x] ?? null);
+          }
+        });
+    } else if ($id) {
+      $query->where($this->GetTableName() . '.' . $this->GetPrimaryKey(), $id);
     }
     $this->doBuildSingleQuery($query, $params);
   }
