@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use Talonon\LazyLoader\LazyLoaderProvider;
 use Talonon\Ooops\Contexts\DbContext;
 use Talonon\Ooops\Operations\RDBMS\CreateOperation;
 use Talonon\Ooops\Operations\RDBMS\DeleteOperation;
@@ -88,23 +89,24 @@ class OopsServiceProvider extends ServiceProvider {
    * @return void
    */
   public function register() {
-    app()->bind('talonon.ooops.dbcontext', DbContext::class);
+    $this->app->register(LazyLoaderProvider::class);
+    $this->app->bind('talonon.ooops.dbcontext', DbContext::class);
 
-    app()->singleton(
+    $this->app->singleton(
       'talonon.ooops.repositories', function () {
       return new Collection();
     });
-    app()->singleton(
+    $this->app->singleton(
       'talonon.ooops.operations.overrides', function () {
       return new Collection();
     });
 
     // Bind the generics
-    app()->bind('talonon.ooops.operations.rdbms.create', CreateOperation::class);
-    app()->bind('talonon.ooops.operations.rdbms.update', UpdateOperation::class);
-    app()->bind('talonon.ooops.operations.rdbms.delete', DeleteOperation::class);
-    app()->bind('talonon.ooops.operations.rdbms.get', GetSingleOperation::class);
-    app()->bind('talonon.ooops.operations.rdbms.getList', GetMultipleOperation::class);
+    $this->app->bind('talonon.ooops.operations.rdbms.create', CreateOperation::class);
+    $this->app->bind('talonon.ooops.operations.rdbms.update', UpdateOperation::class);
+    $this->app->bind('talonon.ooops.operations.rdbms.delete', DeleteOperation::class);
+    $this->app->bind('talonon.ooops.operations.rdbms.get', GetSingleOperation::class);
+    $this->app->bind('talonon.ooops.operations.rdbms.getList', GetMultipleOperation::class);
 
   }
 
