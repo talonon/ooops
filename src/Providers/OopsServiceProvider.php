@@ -21,6 +21,7 @@ class OopsServiceProvider extends ServiceProvider {
 
   public static function compiles() {
     return [
+      __DIR__ . '/../Models/NullEntity.php',
       __DIR__ . '/../Models/Entity.php',
       __DIR__ . '/../Interfaces/ResultInterface.php',
       __DIR__ . '/../Operations/BaseOperation.php',

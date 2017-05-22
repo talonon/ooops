@@ -1,6 +1,6 @@
 <?php namespace Talonon\Ooops\Models;
 
-class Entity {
+class Entity extends NullEntity {
   private $_id;
 
   /**
