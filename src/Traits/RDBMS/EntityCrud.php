@@ -66,6 +66,14 @@ trait EntityCrud {
   }
 
   /**
+   * @param BaseGetSingleParams $params
+   * @return Collection
+   */
+  protected function countEntities(BaseGetMultipleParams $params) {
+    return $this->_crud('getCount', $params)->GetResult();
+  }
+
+  /**
    * @param DbContext $context
    * @param callable $callable
    * @return mixed

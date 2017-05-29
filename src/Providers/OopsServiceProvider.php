@@ -6,6 +6,7 @@ use Talonon\LazyLoader\LazyLoaderProvider;
 use Talonon\Ooops\Contexts\DbContext;
 use Talonon\Ooops\Operations\RDBMS\CreateOperation;
 use Talonon\Ooops\Operations\RDBMS\DeleteOperation;
+use Talonon\Ooops\Operations\RDBMS\GetCountOperation;
 use Talonon\Ooops\Operations\RDBMS\GetMultipleOperation;
 use Talonon\Ooops\Operations\RDBMS\GetSingleOperation;
 use Talonon\Ooops\Operations\RDBMS\UpdateOperation;
@@ -108,6 +109,7 @@ class OopsServiceProvider extends ServiceProvider {
     $this->app->bind('talonon.ooops.operations.rdbms.delete', DeleteOperation::class);
     $this->app->bind('talonon.ooops.operations.rdbms.get', GetSingleOperation::class);
     $this->app->bind('talonon.ooops.operations.rdbms.getList', GetMultipleOperation::class);
+    $this->app->bind('talonon.ooops.operations.rdbms.getCount', GetCountOperation::class);
 
   }
 
