@@ -4,6 +4,7 @@ use Illuminate\Database\Query\Builder;
 use Talonon\Ooops\Contexts\DbContext;
 use Talonon\Ooops\Exceptions\EntityNotFoundException;
 use Talonon\Ooops\Exceptions\InternalException;
+use Talonon\Ooops\Interfaces\AllowSoftDeletedInterface;
 use Talonon\Ooops\Models\BaseGetSingleParams;
 
 class GetSingleOperation extends BaseGetOperation {
@@ -12,14 +13,16 @@ class GetSingleOperation extends BaseGetOperation {
     parent::__construct($context, get_class($params));
     $this->params = $params;
   }
-
   /**
    * @var BaseGetSingleParams
    */
   protected $params;
 
+
   protected function buildQuery(Builder $select) {
-    parent::buildQuery($select);
+    if (!($this->params instanceof AllowSoftDeletedInterface) || !$this->params->GetAllowSoftDeleted()) {
+      $this->addWhereSoftDeleted($select);
+    }
     $this->getRepository()->BuildGetSingleQuery($select, $this->params);
   }
 
