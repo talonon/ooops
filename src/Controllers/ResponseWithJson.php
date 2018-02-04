@@ -62,7 +62,7 @@ trait ResponseWithJson {
   protected function respondSuccess($message = null, $id = null, $entity = null) {
     $this->ensureXHR();
     $data['success'] = true;
-    $message && ($data['message'] = $message);
+    $message && ($data['message'] = @json_decode($message) ?: $message);
     $id && ($data['id'] = $id);
     $entity && ($data['entity'] = $entity);
     return $this->respondObject($data);
@@ -127,7 +127,7 @@ trait ResponseWithJson {
     $this->ensureXHR();
     $data['success'] = false;
     $data['statusCode'] = $statusCode;
-    $message && ($data['error'] = $message);
+    $message && ($data['error'] = @json_decode($message) ?: $message);
     return $this->respondObject($data, $statusCode);
   }
 
