@@ -20,6 +20,16 @@ abstract class Struct {
     }
   }
 
+  public static function GetKey($value) {
+    $oc = new \ReflectionClass(get_called_class());
+    $constants = array_flip($oc->getConstants());
+    if (array_key_exists($value, $constants)) {
+      return $constants[$value];
+    } else {
+      throw new InternalException('Invalid enumeration value ' . $value);
+    }
+  }
+
   public static function toArray() {
     $oc = new \ReflectionClass(get_called_class());
     return $oc->getConstants();
