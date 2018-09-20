@@ -3,6 +3,7 @@
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Talonon\Ooops\Contexts\DbContext;
+use Talonon\Ooops\Interfaces\AllowSoftDeletedInterface;
 use Talonon\Ooops\Interfaces\HasPaginationInterface;
 use Talonon\Ooops\Models\BaseGetMultipleParams;
 
@@ -14,7 +15,7 @@ class GetMultipleOperation extends BaseGetOperation {
   }
 
   /**
-   * @var BaseGetMultipleParams|HasPaginationInterface
+   * @var BaseGetMultipleParams|HasPaginationInterface|AllowSoftDeletedInterface
    */
   protected $params;
 
@@ -26,7 +27,9 @@ class GetMultipleOperation extends BaseGetOperation {
   }
 
   protected function buildQuery(Builder $query) {
-    parent::buildQuery($query);
+    if (!($this->params instanceof AllowSoftDeletedInterface) || !$this->params->GetAllowSoftDeleted()) {
+      $this->addWhereSoftDeleted($query);
+    }
     $this->getRepository()->BuildGetMultipleQuery($query, $this->params);
     $this->buildPagination($query);
   }
