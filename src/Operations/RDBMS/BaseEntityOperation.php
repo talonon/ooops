@@ -3,6 +3,7 @@
 use Illuminate\Database\Query\Builder;
 use Talonon\Ooops\Contexts\DbContext;
 use Talonon\Ooops\Exceptions\InternalException;
+use Talonon\Ooops\Interfaces\RepositoryWithDatabaseInterface;
 use Talonon\Ooops\Models\Entity;
 use Talonon\Ooops\Repositories\BaseDbRepository;
 use Talonon\Ooops\Repositories\BaseSoftDeleteDbRepository;
@@ -67,6 +68,16 @@ abstract class BaseEntityOperation extends BaseDbOperation {
       }
     }
     return $this->_repository;
+  }
+
+  /**
+   * @return \Illuminate\Database\Connection
+   */
+  protected function getDatabase() {
+    if ($this->getRepository() instanceof RepositoryWithDatabaseInterface) {
+      return $this->getRepository()->GetDatabase();
+    }
+    return $this->context->GetDatabase();
   }
 
   /**
