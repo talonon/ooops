@@ -8,7 +8,7 @@
     }
   ],
   "require": {
-    "laravel/framework": "^5.0",
+    "laravel/framework": ">=5.0",
     "talonon/lazyloader": "dev-master@dev",
     "php": ">=7.0.0",
     "ramsey/uuid": "*",
