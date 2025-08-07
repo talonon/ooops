@@ -1,7 +1,12 @@
 <?php namespace Talonon\Ooops\Models\Uuids;
 
+use Ramsey\Uuid\Converter\Number\BigNumberConverter;
 use Ramsey\Uuid\Converter\NumberConverterInterface;
 use Ramsey\Uuid\Exception\UnsupportedOperationException;
+use Ramsey\Uuid\Fields\FieldsInterface;
+use Ramsey\Uuid\Rfc4122\Fields;
+use Ramsey\Uuid\Type\Hexadecimal;
+use Ramsey\Uuid\Type\Integer as IntegerObject;
 use Ramsey\Uuid\UuidInterface;
 
 class NullUuid implements UuidInterface {
@@ -18,7 +23,7 @@ class NullUuid implements UuidInterface {
    * @param UuidInterface $other UUID to which this UUID is compared
    * @return int -1, 0 or 1 as this UUID is less than, equal to, or greater than `$uuid`
    */
-  public function compareTo(UuidInterface $other) {
+  public function compareTo(UuidInterface $other): int {
     return 0;
   }
 
@@ -32,7 +37,7 @@ class NullUuid implements UuidInterface {
    * @param object $other
    * @return bool True if `$other` is equal to this UUID
    */
-  public function equals($other) {
+  public function equals($other): bool {
     return false;
   }
 
@@ -42,7 +47,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string
    */
-  public function getBytes() {
+  public function getBytes(): string {
     return '';
   }
 
@@ -52,7 +57,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string Hexadecimal value of clock_seq_hi_and_reserved
    */
-  public function getClockSeqHiAndReservedHex() {
+  public function getClockSeqHiAndReservedHex(): string {
     return '';
   }
 
@@ -61,7 +66,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string Hexadecimal value of clock_seq_low
    */
-  public function getClockSeqLowHex() {
+  public function getClockSeqLowHex(): string {
     return '';
   }
 
@@ -70,7 +75,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string Hexadecimal value of clock sequence
    */
-  public function getClockSequenceHex() {
+  public function getClockSequenceHex(): string {
     return '';
   }
 
@@ -85,7 +90,7 @@ class NullUuid implements UuidInterface {
    * @return \DateTime A PHP DateTime representation of the date
    * @throws UnsupportedOperationException If this UUID is not a version 1 UUID
    */
-  public function getDateTime() {
+  public function getDateTime(): \DateTimeInterface {
     throw new UnsupportedOperationException();
   }
 
@@ -106,7 +111,7 @@ class NullUuid implements UuidInterface {
    *
    * @return array The UUID fields represented as hexadecimal values
    */
-  public function getFieldsHex() {
+  public function getFieldsHex(): array {
     return [];
   }
 
@@ -115,7 +120,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string
    */
-  public function getHex() {
+  public function getHex(): Hexadecimal {
     return '';
   }
 
@@ -125,7 +130,7 @@ class NullUuid implements UuidInterface {
    *
    * @return mixed Converted representation of the unsigned 128-bit integer value
    */
-  public function getInteger() {
+  public function getInteger(): IntegerObject {
     return 0;
   }
 
@@ -134,7 +139,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string Hexadecimal value of least significant bits
    */
-  public function getLeastSignificantBitsHex() {
+  public function getLeastSignificantBitsHex(): string {
     return '';
   }
 
@@ -143,7 +148,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string Hexadecimal value of most significant bits
    */
-  public function getMostSignificantBitsHex() {
+  public function getMostSignificantBitsHex(): string {
     return '';
   }
 
@@ -171,7 +176,7 @@ class NullUuid implements UuidInterface {
    * @return string Hexadecimal value of node
    * @link http://tools.ietf.org/html/rfc4122#section-4.1.6
    */
-  public function getNodeHex() {
+  public function getNodeHex(): string {
     return '';
   }
 
@@ -180,8 +185,8 @@ class NullUuid implements UuidInterface {
    *
    * @return NumberConverterInterface
    */
-  public function getNumberConverter() {
-    return null;
+  public function getNumberConverter(): NumberConverterInterface {
+    return new BigNumberConverter();
   }
 
   /**
@@ -190,7 +195,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string Hexadecimal value of time_hi_and_version
    */
-  public function getTimeHiAndVersionHex() {
+  public function getTimeHiAndVersionHex(): string {
     return '';
   }
 
@@ -199,7 +204,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string Hexadecimal value of time_low
    */
-  public function getTimeLowHex() {
+  public function getTimeLowHex(): string {
     return '';
   }
 
@@ -208,7 +213,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string Hexadecimal value of time_mid
    */
-  public function getTimeMidHex() {
+  public function getTimeMidHex(): string {
     return '';
   }
 
@@ -228,7 +233,7 @@ class NullUuid implements UuidInterface {
    * @throws UnsupportedOperationException If this UUID is not a version 1 UUID
    * @link http://tools.ietf.org/html/rfc4122#section-4.1.4
    */
-  public function getTimestampHex() {
+  public function getTimestampHex(): string {
     throw new UnsupportedOperationException();
   }
 
@@ -238,7 +243,7 @@ class NullUuid implements UuidInterface {
    * @return string
    * @link http://en.wikipedia.org/wiki/Uniform_Resource_Name
    */
-  public function getUrn() {
+  public function getUrn(): string {
     return '';
   }
 
@@ -256,9 +261,18 @@ class NullUuid implements UuidInterface {
    * @return int
    * @link http://tools.ietf.org/html/rfc4122#section-4.1.1
    */
-  public function getVariant() {
+  public function getVariant(): ?int {
     return 0;
   }
+
+  public function getFields(): FieldsInterface {
+    return new Fields();
+  }
+
+  public function __toString(): string {
+    return $this->toString();
+  }
+
 
   /**
    * Returns the version number associated with this UUID.
@@ -278,7 +292,7 @@ class NullUuid implements UuidInterface {
    * @return int|null
    * @link http://tools.ietf.org/html/rfc4122#section-4.1.3
    */
-  public function getVersion() {
+  public function getVersion(): ?int {
     return null;
   }
 
@@ -289,7 +303,7 @@ class NullUuid implements UuidInterface {
    * which is a value of any type other than a resource.
    * @since 5.4.0
    */
-  function jsonSerialize() {
+  function jsonSerialize(): mixed {
     return [];
   }
 
@@ -308,7 +322,7 @@ class NullUuid implements UuidInterface {
    *
    * @return string
    */
-  public function toString() {
+  public function toString(): string {
     return '';
   }
 
@@ -325,4 +339,3 @@ class NullUuid implements UuidInterface {
   }
 
 }
-

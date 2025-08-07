@@ -5,7 +5,7 @@ use Talonon\Ooops\Contexts\DbContext;
 class CommitTransaction {
 
   public function handle() {
-    context()->GetDatabase()->commit();
+    tixcontext()->GetDatabase()->commit();
   }
 
 }

@@ -3,7 +3,7 @@
 class BeginTransaction {
 
   public function handle() {
-    context()->GetDatabase()->beginTransaction();
+    tixcontext()->GetDatabase()->beginTransaction();
   }
 
 }

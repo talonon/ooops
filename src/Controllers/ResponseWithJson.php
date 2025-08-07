@@ -37,6 +37,7 @@ trait ResponseWithJson {
     } catch (HttpException $hex) {
       return $this->respondError($hex->getMessage(), $hex->getStatusCode());
     } catch (\Exception $ex) {
+      dd($ex);
       return $this->dispatcherError($ex);
     }
   }

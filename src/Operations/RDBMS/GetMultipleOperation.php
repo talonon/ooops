@@ -69,7 +69,12 @@ class GetMultipleOperation extends BaseGetOperation {
 
   private function _createCollection(Collection $collection): Collection {
     $class = get_class($this->getRepository()) . '.Collection';
-    return app()->isAlias($class) ? app($class, [$collection]) : $collection;
+    if (app()->isAlias($class)) {
+      /** @var Collection $col */
+      $col = app($class);
+      return $col->merge($collection);
+    }
+    return $collection;
   }
 
 }
