@@ -60,8 +60,16 @@ class GetMultipleOperation extends BaseGetOperation {
       $select->limit = null;
       $select->offset = null;
       // Get just the record counts we don't want the records themselves.
-      $results = $select->count($this->getRepository()->GetTableName() . '.' . $this->getRepository()->GetPrimaryKey());
-
+      $cols = [];
+      if (is_array($this->getRepository()->GetPrimaryKey())) {
+        foreach ($this->getRepository()->GetPrimaryKey() as $col) {
+          $cols[] = $this->getRepository()->GetTableName() . '.' . $col;
+          break;
+        }
+      } else {
+        $cols[] = $this->getRepository()->GetTableName() . '.' . $this->getRepository()->GetPrimaryKey();
+      }
+      $results = $select->count($cols);
       $pages = ceil($results / $this->params->GetPagination()->GetPerPage());
       $this->params->GetPagination()->SetResultPages($pages)->SetResultCount($results);
     }
