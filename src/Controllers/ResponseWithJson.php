@@ -37,7 +37,7 @@ trait ResponseWithJson {
     } catch (HttpException $hex) {
       return $this->respondError($hex->getMessage(), $hex->getStatusCode());
     } catch (\Exception $ex) {
-      dd($ex);
+      \Log::error(sprintf("%s in %s on line %s\n%s", $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTraceAsString()));
       return $this->dispatcherError($ex);
     }
   }
